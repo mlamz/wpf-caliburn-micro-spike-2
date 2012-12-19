@@ -28,7 +28,10 @@
 								BorderThickness="0" 
 								Padding="10,9,7,7"
 								IsEnabled="True" 
-								Text="{Binding Text}"  />
+								Text="{Binding Text}" 
+								Background="{Binding Color}"
+								cal:Message.Attach="[MouseDoubleClick]=[Action OpenItem($dataContext)]" 
+								/>
 
 							<!--<TextBox 
 								Text="{Binding Text}" 

@@ -34,6 +34,10 @@ namespace CaliburnMicroSpike2
 
 
 
+		public void OpenItem(ToDoListItem item)
+		{
+			item.Color = "Red";
+		}
 
 	}
 }
