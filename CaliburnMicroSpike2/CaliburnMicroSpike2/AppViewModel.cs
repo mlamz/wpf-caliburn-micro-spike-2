@@ -1,7 +1,5 @@
 ﻿using System;
 using System.ComponentModel.Composition;
-using System.Windows;
-using System.Windows.Input;
 using Caliburn.Micro;
 
 namespace CaliburnMicroSpike2
@@ -9,6 +7,8 @@ namespace CaliburnMicroSpike2
 	[Export(typeof(AppViewModel))]
 	public class AppViewModel: PropertyChangedBase
 	{
+		private int _itemCounter = 4;
+		
 		public BindableCollection<ToDoListItem> ToDoListItems { get; private set; }
 
 		public AppViewModel()
@@ -24,7 +24,8 @@ namespace CaliburnMicroSpike2
 
 		public void Add()
 		{
-			ToDoListItems.Add(new ToDoListItem { Id = Guid.NewGuid(), Text = "New Item" });
+			_itemCounter = _itemCounter + 1;
+			ToDoListItems.Add(new ToDoListItem { Id = Guid.NewGuid(), Text = string.Format("Item {0}", _itemCounter) });
 		}
 
 		public void Remove(ToDoListItem child)
@@ -32,12 +33,16 @@ namespace CaliburnMicroSpike2
 			ToDoListItems.Remove(child);
 		}
 
-
-
 		public void OpenItem(ToDoListItem item)
 		{
-			item.Color = "Red";
+			item.Color = FormConstants.ListItemBackgroundColorActive;
+			item.Readonly = false;
 		}
 
+		public void CloseItem(ToDoListItem item)
+		{
+			item.Color = FormConstants.ListItemBackgroundColorInactive;
+			item.Readonly = true;
+		}
 	}
 }

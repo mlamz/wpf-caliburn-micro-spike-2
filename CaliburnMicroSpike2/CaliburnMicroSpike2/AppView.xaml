@@ -30,23 +30,9 @@
 								IsEnabled="True" 
 								Text="{Binding Text}" 
 								Background="{Binding Color}"
-								cal:Message.Attach="[MouseDoubleClick]=[Action OpenItem($dataContext)]" 
-								/>
-
-							<!--<TextBox 
-								Text="{Binding Text}" 
-								Foreground="#AAAAAA"
-								Height="40" 
-								Width="424"
-								FontSize="15" 
-								BorderThickness="0" 
-								Padding="10,9,7,7" 
-								Background="{Binding TextBox1Background}"
-								IsReadOnly="{Binding TextBox1ReadOnly, UpdateSourceTrigger=LostFocus}" 
-								IsEnabled="True"
-								cal:Message.Attach="[MouseDoubleClick]=[Action OpenItem($this, $eventArgs)];[KeyDown]=[Action KeyDown($eventArgs)]" 
-
-								 />-->
+								IsReadOnly="{Binding Readonly}"
+								cal:Message.Attach="[MouseDoubleClick]=[Action OpenItem($dataContext)];[LostFocus]=[Action CloseItem($dataContext)]" 
+							/>
 						</StackPanel>
 					</DataTemplate>
 				</ItemsControl.ItemTemplate>

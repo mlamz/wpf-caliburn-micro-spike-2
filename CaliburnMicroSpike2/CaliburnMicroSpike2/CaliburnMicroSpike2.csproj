@@ -66,6 +66,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="FormConstants.cs" />
     <Compile Include="ToDoListItem.cs" />
   </ItemGroup>
   <ItemGroup>
