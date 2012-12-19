@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.Composition;
+﻿using System;
+using System.ComponentModel.Composition;
 using System.Windows;
 using System.Windows.Input;
 using Caliburn.Micro;
@@ -8,54 +9,31 @@ namespace CaliburnMicroSpike2
 	[Export(typeof(AppViewModel))]
 	public class AppViewModel: PropertyChangedBase
 	{
-		private string _textBox1 = "item 1";
-		private bool _textBoxReadOnly = true;
-		private string _textBox1Background = "#666666";
+		public BindableCollection<ToDoListItem> ToDoListItems { get; private set; }
 
-		public string TextBox1
+		public AppViewModel()
 		{
-			get { return _textBox1; }
-			set
+			ToDoListItems = new BindableCollection<ToDoListItem>
 			{
-				_textBox1 = value;
-				NotifyOfPropertyChange(() => TextBox1);
-			}
-		}
-		
-		public void OpenItem(object sender, object eventArgs)
-		{
-			TextBox1ReadOnly = false;
-			TextBox1Background = "#999999";
-			TextBox1 += ".";
+				new ToDoListItem { Id = Guid.NewGuid(), Text = "Item 1" },
+				new ToDoListItem { Id = Guid.NewGuid(), Text = "Item 2" },
+				new ToDoListItem { Id = Guid.NewGuid(), Text = "Item 3" },
+				new ToDoListItem { Id = Guid.NewGuid(), Text = "Item 4" },
+			};
 		}
 
-		public bool TextBox1ReadOnly
+		public void Add()
 		{
-			get { return _textBoxReadOnly; }
-			set
-			{
-				_textBoxReadOnly = value;
-				NotifyOfPropertyChange(() => TextBox1ReadOnly);
-			}
+			ToDoListItems.Add(new ToDoListItem { Id = Guid.NewGuid(), Text = "New Item" });
 		}
 
-		public string TextBox1Background
+		public void Remove(ToDoListItem child)
 		{
-			get { return _textBox1Background; }
-			set
-			{
-				_textBox1Background = value;
-				NotifyOfPropertyChange(() => TextBox1Background);
-			}
+			ToDoListItems.Remove(child);
 		}
 
-		public void KeyDown(KeyEventArgs eventArgs)
-		{
-			if (eventArgs.Key == Key.Return)
-			{
-				TextBox1ReadOnly = true;
-				TextBox1Background = "#666666";
-			}
-		}
+
+
+
 	}
 }

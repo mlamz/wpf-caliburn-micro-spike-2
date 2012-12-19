@@ -5,25 +5,51 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:Behaviors="clr-namespace:CaliburnMicroSpike2" xmlns:cal="http://www.caliburnproject.org"
              mc:Ignorable="d" 
-             d:DesignHeight="900" d:DesignWidth="1200">
+             d:DesignHeight="900" d:DesignWidth="1200"
+			 >
     <Grid Height="900" Width="1200" Background="#FF242424">
 
 			<Label Content="WPF Caliburn Panel Spike thing" Height="37" HorizontalAlignment="Left" Margin="33,36,0,0" Name="label1" VerticalAlignment="Top" Foreground="White" FontSize="20" />
-			<DockPanel Height="517" HorizontalAlignment="Left" Margin="34,109,0,0" Name="dockPanel1" VerticalAlignment="Top" Width="424" Background="#FF070707" LastChildFill="True">
-			<TextBox 
-				cal:Message.Attach="[MouseDoubleClick]=[Action OpenItem($this, $eventArgs)];[KeyDown]=[Action KeyDown($eventArgs)]" 
-				DockPanel.Dock="Top" 
-				Height="40" 
-				Width="424" 
-				Background="{Binding TextBox1Background}"
-				Foreground="#AAAAAA" 
-				FontSize="15" 
-				BorderThickness="0" 
-				Padding="10,9,7,7" 
-				IsReadOnly="{Binding TextBox1ReadOnly, UpdateSourceTrigger=LostFocus}" 
-				IsEnabled="True" Text="{Binding TextBox1, UpdateSourceTrigger=LostFocus}" />
-				<Rectangle />
-			</DockPanel>
+		
+		<StackPanel  Margin="534,109,0,0">
+			<ItemsControl x:Name="ToDoListItems">
+				<ItemsControl.ItemTemplate>
+					<DataTemplate>
+						<StackPanel Orientation="Horizontal">
+							<Button Content="Remove"
+                                cal:Message.Attach="Remove($dataContext)" />
 
+							<TextBox 
+								DockPanel.Dock="Top" 
+								Height="40" 
+								Width="424"
+								Foreground="#AAAAAA" 
+								FontSize="15" 
+								BorderThickness="0" 
+								Padding="10,9,7,7"
+								IsEnabled="True" 
+								Text="{Binding Text}"  />
+
+							<!--<TextBox 
+								Text="{Binding Text}" 
+								Foreground="#AAAAAA"
+								Height="40" 
+								Width="424"
+								FontSize="15" 
+								BorderThickness="0" 
+								Padding="10,9,7,7" 
+								Background="{Binding TextBox1Background}"
+								IsReadOnly="{Binding TextBox1ReadOnly, UpdateSourceTrigger=LostFocus}" 
+								IsEnabled="True"
+								cal:Message.Attach="[MouseDoubleClick]=[Action OpenItem($this, $eventArgs)];[KeyDown]=[Action KeyDown($eventArgs)]" 
+
+								 />-->
+						</StackPanel>
+					</DataTemplate>
+				</ItemsControl.ItemTemplate>
+			</ItemsControl>
+			<Button Content="Add"
+                cal:Message.Attach="Add" />
+		</StackPanel>
 	</Grid>
 </UserControl>
