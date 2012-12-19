@@ -1,16 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
+﻿using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace CaliburnMicroSpike2
 {
@@ -22,6 +12,39 @@ namespace CaliburnMicroSpike2
 		public AppView()
 		{
 			InitializeComponent();
+		}
+
+		private void textBox1_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+		{
+			var textBox = sender as TextBox;
+			SetTextBoxEdit(textBox);
+		}
+
+		private void textBox1_KeyDown(object sender, KeyEventArgs e)
+		{
+			var key = e.Key;
+			if (key == Key.Return)
+			{
+				SetTextBoxReadonly((TextBox)sender);
+			}
+		}
+
+		private void SetTextBoxReadonly(TextBox textBox)
+		{
+			textBox.IsReadOnly = true;
+			var backgroundColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#333333"));
+			textBox.Background = backgroundColor;
+			textBox.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#AAAAAA"));
+			textBox.CaretBrush = backgroundColor;
+		}
+
+		private void SetTextBoxEdit(TextBox textBox)
+		{
+			textBox.IsReadOnly = false;
+			textBox.Background = new SolidColorBrush(Colors.DarkSlateGray);
+			textBox.Foreground = new SolidColorBrush(Colors.White);
+			textBox.CaretBrush = new SolidColorBrush(Colors.White);
+			textBox.Focus();
 		}
 	}
 }
